@@ -13,15 +13,22 @@
         <th>Deskripsi</th>
     </tr>
     {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-    {% for assaginment in list_of_assginments %}
+    {% for assignnment in list_of_assignments %}
         <tr>
-            <td>{{transaction.name}}</td>
-            <td>{{transaction.subject}}</td>
-            <td>{{transaction.date}}</td>
-            <td>{{transaction.progress}}</td>
-            <td>{{transaction.description}}</td>
+            <td>{{assignment.name}}</td>
+            <td>{{assignment.subject}}</td>
+            <td>{{assignment.date}}</td>
+            <td>{{assignment.progress}}</td>
+            <td>{{assignment.description}}</td>
     </tr>
     {% endfor %}
 </table>
+
+<br>
+<a href="{% url 'study_tracker:create_assignment' %}">
+    <button>
+        Assignment Baru
+    </button>
+</a>
 
 {% endblock content %}
