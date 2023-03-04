@@ -3,7 +3,8 @@ from study_tracker.models import Assignment
 from django.http import HttpResponseRedirect
 from study_tracker.forms import AssignmentForm
 from django.urls import reverse
-
+from django.http import HttpResponse
+from django.core import serializers
 
 
 # Create your views here.
@@ -20,7 +21,17 @@ def create_assignment(request):
 
     if form.is_valid() and request.method == "POST":
         form.save()
-        return HttpResponseRedirect(reverse('study_tracker:study_tracker'))
+        return HttpResponseRedirect(reverse('study_tracker:show_tracker'))
 
     context = {'form': form}
     return render(request, "create_assignment.html", context)
+
+def show_xml(request):
+    data = Assignment.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = Assignment.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+
