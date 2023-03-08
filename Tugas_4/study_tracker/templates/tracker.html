@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5>Nama: </h5>
+<p>{{name}}</p>
+
+<table>
+    <tr>
+        <th>Nama</th>
+        <th>Subject</th>
+        <th>Tanggal</th>
+        <th>Progress</th>
+        <th>Deskripsi</th>
+    </tr>
+    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+    {% for assignnment in list_of_assignments %}
+    <tr>
+        <td>{{assignment.name}}</td>
+        <td>{{assignment.subject}}</td>
+        <td>{{assignment.date}}</td>
+        <td>{{assignment.progress}}</td>
+        <td>{{assignment.description}}</td>
+    </tr>
+{% endfor %}
+</table>
+
+
+<br>
+<a href="{% url 'study_tracker:create_assignment' %}">
+    <button>
+        Assignment Baru
+    </button>
+</a>
+
+{% endblock content %}
