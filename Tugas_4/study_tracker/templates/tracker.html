@@ -24,8 +24,14 @@
 {% endfor %}
 </table>
 
-
 <br>
+
+<a href="{% url 'study_tracker:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
+
 <a href="{% url 'study_tracker:create_assignment' %}">
     <button>
         Assignment Baru

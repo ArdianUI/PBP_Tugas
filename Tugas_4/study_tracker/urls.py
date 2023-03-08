@@ -5,6 +5,7 @@ from study_tracker.views import show_xml
 from study_tracker.views import show_json
 from study_tracker.views import register
 from study_tracker.views import login_user
+from study_tracker.views import logout_user
 
 app_name = 'study_tracker'
 
@@ -15,4 +16,5 @@ urlpatterns = [
     path('json/', show_json, name='show_json'),
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
 ]
