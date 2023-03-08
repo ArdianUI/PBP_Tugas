@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/azardian/Documents/Python_Stuff/PBP_Tugas/Tugas_3/env"
+set -gx VIRTUAL_ENV "/Users/azardian/Documents/Python_Stuff/PBP_Tugas/Tugas_4/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

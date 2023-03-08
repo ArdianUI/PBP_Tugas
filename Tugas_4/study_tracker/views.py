@@ -10,15 +10,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import datetime
+
 
 
 # Create your views here.
-@login_required(login_url='/money_tracker/login/')
+@login_required(login_url='/study_tracker/login/')
 def show_tracker(request):
     assignment_data = Assignment.objects.all()
     context = {
     'list_of_assignments': assignment_data,
     'name': request.user.username,
+    'last_login':request.COOKIES['last_login']
     }
     return render(request, "tracker.html", context)
 
@@ -59,8 +62,10 @@ def login_user(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return redirect('study_tracker:show_tracker')
+            login(request, user) # melakukan login terlebih dahulu
+            response = HttpResponseRedirect(reverse("study_tracker:show_tracker")) # membuat response
+            response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+            return response
         else:
             messages.info(request, 'Username atau Password salah!')
     context = {}
@@ -68,5 +73,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('money_tracker:login')
+    response = HttpResponseRedirect(reverse('study_tracker:login'))
+    response.delete_cookie('last_login')
+    return response
 
