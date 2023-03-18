@@ -5,7 +5,7 @@ from django.db import models
 
 class Assignment(models.Model):
     name = models.CharField(max_length=50)
-    subject = models.CharField(max_length=50)
     date = models.DateTimeField(default=timezone.now)
+    subject = models.CharField(max_length=50)
     progress = models.IntegerField()
     description = models.TextField()

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from study_tracker.models import Assignment
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from study_tracker.forms import AssignmentForm
 from django.urls import reverse
 from django.http import HttpResponse
@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -34,6 +34,54 @@ def create_assignment(request):
 
     context = {'form': form}
     return render(request, "create_assignment.html", context)
+
+@csrf_exempt
+def create_assignment_ajax(request):  
+    # create object of form
+    form = AssignmentForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        data = Assignment.objects.last()
+
+        # parsing the form data into json
+        result = {
+            'id':data.id,
+            'name':data.name,
+            'date':data.date,
+            'subject':data.subject,
+            'progress':data.progress,
+            'description':data.description,
+        }
+        return JsonResponse(result)
+
+        context = {'form': form}
+        return render(request, "create_assignment.html", context)
+
+def modify_assignment(request, id):
+    # Get data berdasarkan ID
+    assignment = Assignment.objects.get(pk = id)
+
+    # Set instance pada form dengan data dari transaction
+    form = Assignment(request.POST or None, instance=assignment)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('study_tracker:show_tracker'))
+
+    context = {'form': form}
+    return render(request, "modify_assignment.html", context)
+
+def delete_assignment(request, id):
+    # Get data berdasarkan ID
+    assignment = Assignment.objects.get(pk = id)
+    # Hapus data
+    assignment.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('study_tracker:show_tracker'))
+
+
 
 def show_xml(request):
     data = Assignment.objects.all()
