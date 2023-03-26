@@ -2,7 +2,7 @@ Nama: Ardian
 
 NPM: 2106338173
 
-Project: Tugas 5
+Project: Tugas 6
 
     1.  Terdapat perbedaan dalam pengeksekusian tugas. Synchronous programming menghentikan eksekusi sampai tugas yang sedang berjalan selesai, sedangkan asynchronous programming mengeksekusi tugas yang berbeda secara bersamaan, bahkan jika tugas yang sedang berjalan belum selesai. Dalam asynchronous programming, ketika sebuah tugas yang memerlukan waktu untuk menyelesaikan eksekusinya dijalankan, program tidak akan menghentikan eksekusi, tetapi terus mengeksekusi tugas lain yang telah diberikan sambil menunggu tugas yang sedang berjalan selesai.
 
