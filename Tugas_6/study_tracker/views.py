@@ -55,8 +55,8 @@ def create_assignment_ajax(request):
         }
         return JsonResponse(result)
 
-        context = {'form': form}
-        return render(request, "create_assignment.html", context)
+    context = {'form': form}
+    return render(request, "create_assignment.html", context)
 
 def modify_assignment(request, id):
     # Get data berdasarkan ID
