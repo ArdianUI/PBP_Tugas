@@ -63,7 +63,7 @@ def modify_assignment(request, id):
     assignment = Assignment.objects.get(pk = id)
 
     # Set instance pada form dengan data dari transaction
-    form = Assignment(request.POST or None, instance=assignment)
+    form = AssignmentForm(request.POST or None, instance=assignment)
 
     if form.is_valid() and request.method == "POST":
         # Simpan form dan kembali ke halaman awal
